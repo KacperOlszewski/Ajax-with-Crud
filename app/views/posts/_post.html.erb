@@ -1,0 +1,56 @@
+
+<div class="col-xs-3 box text-center" id="post_<%= post.id %>">
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<h3 class="panel-title"><%= post.title %></h3>
+			<p><%= post.content %></p>
+		</div>
+
+		<div class="panel-body">
+			<h4>created: <%= time_ago_in_words(post.created_at) %> ago</h4> <br>
+
+			<div class="btn-group" role="group">
+				<button type="button" class=" btn btn-warning" aria-label="..." data-toggle="modal" data-target="#myupdatepost_<%= post.id %>">
+					Edit
+				</button>
+
+				<%= link_to "Destroy", post, method: :delete, class: "btn btn-danger", remote: true %>
+			</div>
+		</div>
+	</div>
+
+	<%= form_for(post, :method => :put, remote: true) do |f| %>
+	    <div class="modal fade" id="myupdatepost_<%= post.id %>" tabindex="-1" role="dialog" aria-hidden="true">
+	      <div class="modal-dialog">
+	        <div class="modal-content">
+
+	          <div class="modal-header">
+	            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                <span aria-hidden="true">&times;</span>
+	            </button>
+	            <h4 id="myModalLabel" class="modal-title">Edit</h4>
+	          </div>
+
+
+	          <div class="modal-body">
+	            <div class="field">
+	                <%= f.label :title %> <br>
+	                <%= f.text_field :title, class: "form_control post_title" %>
+	            </div>
+	            <div class="field">
+	                <%= f.label :content %> <br>
+	                <%= f.text_area :content, class: "form_control post_content" %>
+	            </div>
+	          </div>
+
+	          <div class="modal-footer">
+	            <button id="mynewpostclose" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+	            <%= submit_tag "Edit Post" , class: "btn btn-primary" %>
+	          </div>
+	        </div><!-- /.modal-content -->
+	      </div>
+
+	    </div>
+	<% end %>
+</div>
